@@ -1,1 +1,25 @@
-db.sqlite3
+.db.sqlite3
+htmlcov/
+.coverage
+.pytest_cache/
+
+# Entorno virtual
+venv/
+.venv/
+
+# Archivos temporales de Python
+
+*.py[cod]
+
+# Configuración de Kiro
+.kiro/
+
+# Variables de entorno
+.env
+
+# Archivos de IDE
+.vscode/
+.idea/
+
+.github/workflows/
+
