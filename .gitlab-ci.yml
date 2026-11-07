@@ -30,51 +30,30 @@
 # .gitlab-ci.yml are passed to the service and variables defined in the GitLab UI are not.
 # https://gitlab.com/gitlab-org/gitlab/-/issues/30178
 
+
+
+image: python:3.10
+
+stages:
+  - test
+
 variables:
-  # DJANGO_CONFIG: "test"
-  MYSQL_DATABASE: $MYSQL_DB
-  MYSQL_ROOT_PASSWORD: $MYSQL_PASS
-  MYSQL_USER: $MYSQL_USER
-  MYSQL_PASSWORD: $MYSQL_PASS
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
-default:
-  image: ubuntu:20.04
-  #
-  # Pick zero or more services to be used on all builds.
-  # Only needed when using a docker container to run your tests in.
-  # Check out: https://docs.gitlab.com/ee/ci/services/
-  services:
-    - mysql:8.0
-  #
-  # This folder is cached between builds
-  # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
-  cache:
-    paths:
-      - ~/.cache/pip/
-  before_script:
-    - apt -y update
-    - apt -y install apt-utils
-    - apt -y install net-tools python3.8 python3-pip mysql-client libmysqlclient-dev
-    - apt -y upgrade
-    - pip3 install -r requirements.txt
+cache:
+  paths:
+    - .cache/pip/
 
-
-migrations:
-  stage: build
-  script:
-    - python3 manage.py migrate
-    - python3 manage.py check
-
-
-django-tests:
+tests:
   stage: test
-  script:
-    # The MYSQL user only gets permissions for MYSQL_DB, so Django can't create a test database.
-    - echo "GRANT ALL on *.* to '${MYSQL_USER}';"| mysql -u root --password="${MYSQL_ROOT_PASSWORD}" -h mysql
-    # use python3 explicitly. see https://wiki.ubuntu.com/Python/3
-    - python3 manage.py test
 
-deploy:
-  stage: deploy
-  script: echo "Define your deployment script!"
-  environment: production
+  before_script:
+    - python --version
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - pip install pytest pytest-django
+
+  script:
+    - python manage.py check
+    - pytest -v
+
