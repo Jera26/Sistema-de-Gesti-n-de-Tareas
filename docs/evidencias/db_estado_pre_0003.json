@@ -1,0 +1,29 @@
+{
+ "archivo": "C:\\laragon\\www\\django-todo\\db.sqlite3",
+ "integrity_check": "ok",
+ "foreign_key_check": [],
+ "migraciones_base": [
+  "0001_initial"
+ ],
+ "columnas_base_task": [
+  "id",
+  "title",
+  "description",
+  "complete",
+  "created",
+  "user_id"
+ ],
+ "filas": {
+  "auth_group": 0,
+  "auth_group_permissions": 0,
+  "auth_permission": 28,
+  "auth_user": 2,
+  "auth_user_groups": 0,
+  "auth_user_user_permissions": 0,
+  "base_task": 0,
+  "django_admin_log": 0,
+  "django_content_type": 7,
+  "django_migrations": 19,
+  "django_session": 0
+ }
+}

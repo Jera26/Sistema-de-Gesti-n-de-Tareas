@@ -32,4 +32,6 @@ def client_b(user_b):
 
 @pytest.fixture
 def tarea_a(user_a):
-    return Task.objects.create(user=user_a, title="Tarea de Alice", complete=False)
+    # Decisión C2: creador y asignado explícitos (alice crea y se asigna su tarea).
+    return Task.objects.create(user=user_a, created_by=user_a,
+                               title="Tarea de Alice", complete=False)

@@ -91,3 +91,45 @@ Pruebas nuevas en `tests/test_idioma.py` (17 casos): `LANGUAGE_CODE`, `lang="es"
 | E2E con ventana (1 repetición) | 2 | 2 | 0 |
 | `manage.py check` | – | Sin problemas | – |
 | `makemigrations --check` | – | Sin cambios pendientes | – |
+
+## Etapa 5.1 – Modelo, migraciones y regla de eliminación
+
+Cambios de requisitos: ver `docs/cambios_requisitos.md`.
+
+Archivos:
+
+- `base/models.py`: `created_by` (FK nullable, `SET_NULL`, `related_name='tareas_creadas'`); `user` pasa a `SET_NULL` con `related_name='tareas_asignadas'`.
+- `base/migrations/0003_task_created_by.py`: `ALTER TABLE ADD COLUMN created_by_id` + índice. La parte de `user` es `(no-op)` en SQL.
+- `base/migrations/0004_copiar_user_a_created_by.py`: `RunPython` que hace `UPDATE created_by = user` solo donde `created_by` es NULL. Reversa sin operación.
+- `base/signals.py` + `base/apps.py`: regla de eliminación de usuarios (pre_delete guarda IDs vinculados; post_delete borra solo los que quedaron sin creador ni asignado; todo dentro de la transacción del borrado).
+- `tests/conftest.py`: fixture `tarea_a` con `created_by=user_a` (C2).
+- `scripts/verificar_db.py`: inspección de solo lectura de una base SQLite.
+
+Verificación de SQL (`sqlmigrate`): `0002` todo `(no-op)`; `0003` solo `ADD COLUMN` + `CREATE INDEX`, sin reconstruir la tabla; `0004` Python.
+
+Pruebas nuevas:
+
+- `tests/test_eliminacion_usuarios.py` (13): `SET_NULL` en ambos campos, `related_name`, sin asignación implícita, tarea personal, creador eliminado con tarea asignada a otro, asignado eliminado, tarea sin asignado, tarea sin creador, tareas de otros intactas, huérfanas previas intactas, eliminación masiva, usuario sin tareas.
+- `tests/test_migraciones.py` (4): columna agregada por 0003, copia de datos sin pérdida (títulos, descripciones, estado, fechas, `user`), no sobrescribe `created_by` existente, reversibilidad 0004 → 0002 sin pérdida.
+
+Antes de implementar fallaban las 17.
+
+| Pruebas | Ejecutadas | Aprobadas | Fallidas |
+|---|---|---|---|
+| Unitarias e integración | 63 | 63 | 0 |
+| Orden alterado (migraciones primero) | 36 | 36 | 0 |
+| E2E headless (3 repeticiones) | 6 | 6 | 0 |
+
+### Migración de la base local
+
+| Paso | Resultado |
+|---|---|
+| Copia `backups/db.sqlite3.20261109-pre-0003` | SHA-256 idéntico (`F030720E…CE92`), `integrity_check` ok, mismos conteos |
+| Ensayo de `migrate` sobre copia temporal | 0002, 0003, 0004 OK; original sin cambios (mismo hash) |
+| `migrate` real | 0002, 0003, 0004 OK |
+| Estado posterior | `integrity_check` ok, `foreign_key_check` vacío, columna `created_by_id` presente, mismas filas en todas las tablas salvo `django_migrations` (19 → 22) |
+
+Evidencias: `docs/evidencias/db_estado_pre_0003.json` y `docs/evidencias/db_estado_post_0004.json`.
+La base local tiene 0 tareas, por lo que la copia de datos se verificó con las pruebas automáticas.
+
+Reversión: `python manage.py migrate base 0002` o restaurar la copia de `backups/`.
