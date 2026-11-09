@@ -30,15 +30,13 @@
         <div class="shell">
             {% if user.is_authenticated %}
                 {% include 'base/partials/_topbar.html' %}
-            {% else %}
-                {% include 'base/partials/_auth_brand.html' %}
             {% endif %}
 
             <main id="contenido" class="content" tabindex="-1">
-                <div class="container">
+                {% if user.is_authenticated %}<div class="container">{% endif %}
                     {% block content %}
                     {% endblock content %}
-                </div>
+                {% if user.is_authenticated %}</div>{% endif %}
             </main>
         </div>
     </body>

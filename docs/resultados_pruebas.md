@@ -167,3 +167,34 @@ Defecto encontrado y corregido durante la verificación:
 | E2E con ventana (1 repetición) | 8 | 8 | 0 |
 
 Capturas de evidencia: `docs/evidencias/capturas/D-1/` (login, lista y nueva tarea en 1440, 834 y 390 px, y menú móvil abierto).
+
+## Diseño D-2 – Login y registro
+
+Archivos nuevos:
+
+- `base/templates/base/partials/_form_field.html`: campo Django con etiqueta asociada, marca de obligatorio, botón de mostrar contraseña (solo en campos `password`), errores (`id="<campo>_errores"`) y ayuda (`id="<campo>_ayuda"`). Usa `{{ field }}`, así que conserva `id`, `name`, `autocomplete`, `required` y validaciones.
+- `base/templates/base/partials/_auth_panel.html`: panel informativo; solo describe funciones existentes.
+- `tests/test_interfaz_d2.py` (21 casos) y `tests/e2e/test_interfaz_d2_e2e.py` (8 casos + capturas con `CAPTURAS=1`).
+
+Archivos modificados:
+
+- `login.html`, `register.html`: tarjeta de dos paneles (formulario + panel marino). Errores generales con `{{ form.non_field_errors }}` (`ul.errorlist`). Botón `type="submit"` dentro de `main form`.
+- `partials/_auth_brand.html`: la marca pasa dentro de la tarjeta.
+- `main.html`: el contenedor `.container` solo envuelve el contenido de usuarios autenticados.
+- `app.css`: estilos de autenticación, campos, errores, ayuda y botón de contraseña. El panel se oculta por debajo de 1024 px.
+- `app.js`: mostrar/ocultar contraseña (`aria-pressed`, `aria-label`) y `aria-describedby`/`aria-invalid` en los campos. Sin JavaScript el botón no aparece y el formulario funciona igual.
+- `icons/sprite.svg`: iconos `flecha`, `check`, `ojo`, `ojo-tachado`.
+
+No se agregaron "Recordarme", recuperación de contraseña, nombre completo, correo, términos ni medidor de seguridad (no existen en la aplicación).
+
+Ajuste visual durante la verificación: los errores de campo heredaban la caja de fondo de `ul.errorlist`; se aplicó un estilo específico (`.field ul.field__errors`) para mostrarlos como texto rojo bajo el campo. Los errores generales conservan la caja.
+
+Incidencia de entorno: el servidor `runserver` dejó de responder tras una recarga automática; se reinició. No afecta al código.
+
+| Pruebas | Ejecutadas | Aprobadas | Fallidas |
+|---|---|---|---|
+| Unitarias e integración (incluye 21 de D-2) | 112 | 112 | 0 |
+| E2E headless (3 repeticiones; 16 + 2 omitidas de capturas) | 48 | 48 | 0 |
+| E2E con ventana (1 repetición) | 16 | 16 | 0 |
+
+Capturas: `docs/evidencias/capturas/D-2/` (login y registro en 1440, 834 y 390 px, y con errores de validación).

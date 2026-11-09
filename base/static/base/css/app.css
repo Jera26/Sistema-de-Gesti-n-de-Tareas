@@ -142,20 +142,104 @@ ul.errorlist + p input, ul.errorlist + p textarea { border-color: var(--color-er
 
 .layout-app .container { max-width: 960px; }
 
-/* Autenticación: columna centrada */
-.layout-auth .shell { align-items: center; padding: var(--esp-xl) var(--esp-md); }
-.layout-auth .content { flex: none; max-width: 28rem; padding: 0; }
+/* Autenticación: tarjeta centrada (formulario + panel informativo) */
+.layout-auth .shell { justify-content: center; align-items: center; padding: var(--esp-xl) var(--esp-md); }
+.layout-auth .content { flex: none; max-width: 60rem; padding: 0; }
+
+.auth-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    overflow: hidden;
+    background: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-lg);
+    box-shadow: var(--sombra-3);
+}
+
+.auth-card__form { padding: 2.5rem; }
 
 .auth-brand {
     display: flex;
     align-items: center;
     gap: var(--esp-md);
-    margin: var(--esp-xl) 0 var(--esp-lg);
+    margin-bottom: var(--esp-xl);
     color: var(--color-texto);
 }
 .auth-brand img { width: 2.75rem; height: 2.75rem; }
-.auth-brand strong { display: block; font: var(--titulo-md); letter-spacing: -0.015em; }
+.auth-brand strong { display: block; font: var(--titulo-sm); letter-spacing: -0.01em; }
 .auth-brand span { display: block; font: var(--texto-caption); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-texto-tenue); }
+
+.auth-card__title { margin-bottom: var(--esp-xs); }
+.auth-card__lead { margin-bottom: var(--esp-xl); }
+.auth-card__alt { margin: var(--esp-lg) 0 0; text-align: center; font: var(--texto-md); }
+
+.auth-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem;
+    color: #dce1ff;
+    background:
+        radial-gradient(circle at 85% 15%, rgba(0, 81, 213, 0.45), transparent 55%),
+        linear-gradient(160deg, var(--color-marino) 0%, var(--color-marino-profundo) 100%);
+}
+.auth-panel__eyebrow {
+    margin-bottom: var(--esp-md);
+    font: var(--texto-caption);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #62df7d;
+}
+.auth-panel__title { margin-bottom: var(--esp-xl); font: var(--titulo-lg); letter-spacing: -0.02em; color: #fff; }
+.auth-panel__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--esp-md); }
+.auth-panel__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--esp-md);
+    padding: var(--esp-md);
+    font: var(--texto-md);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radio);
+}
+.auth-panel__list .icono { color: #62df7d; }
+.auth-panel__footer { margin: auto 0 0; padding-top: var(--esp-xl); font: var(--texto-sm); color: #b7c4fd; }
+
+/* Campos individuales (partials/_form_field.html) */
+.form { display: grid; gap: var(--esp-lg); }
+.form > ul.errorlist { margin: 0; }
+.field { display: grid; gap: var(--esp-xs); }
+.field label { margin: 0; }
+.field__required { color: var(--color-error); }
+.field .helptext { margin: 0; }
+.field ul.field__errors { margin: 0; padding: 0; background: none; font: 500 0.8125rem/1.125rem var(--fuente); }
+.field--error input, .field--error select, .field--error textarea { border-color: var(--color-error); }
+
+.field__password { position: relative; }
+.field__password input { padding-right: 3rem; }
+.field__toggle {
+    position: absolute;
+    top: 50%;
+    right: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    color: var(--color-texto-tenue);
+    background: none;
+    border: 0;
+    border-radius: var(--radio);
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.field__toggle[hidden] { display: none; }
+.field__toggle:hover { color: var(--color-texto); background: var(--color-superficie-baja); }
+.field__icon-ocultar, .field__toggle[aria-pressed="true"] .field__icon-mostrar { display: none; }
+.field__toggle[aria-pressed="true"] .field__icon-ocultar { display: block; }
+
+.btn--bloque { width: 100%; }
 
 /* 4. Barra lateral ----------------------------------------------------------- */
 .sidebar {
@@ -462,7 +546,15 @@ ul.errorlist + p input, ul.errorlist + p textarea { border-color: var(--color-er
     .content { padding: var(--gutter); }
 }
 
+@media (max-width: 1023.98px) {
+    .layout-auth .content { max-width: 30rem; }
+    .auth-card { grid-template-columns: minmax(0, 1fr); }
+    .auth-panel { display: none; }
+}
+
 @media (max-width: 767.98px) {
+    .layout-auth .shell { padding: 1rem; }
+    .auth-card__form { padding: var(--gutter); }
     .topbar { padding: 0 1rem; }
     .content { padding: 1rem; }
     .topbar__user-text { display: none; }

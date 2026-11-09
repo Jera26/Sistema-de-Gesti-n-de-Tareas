@@ -1,0 +1,11 @@
+{% comment %}Panel informativo de las páginas de autenticación. Solo describe funciones que existen.{% endcomment %}
+<aside class="auth-panel" aria-labelledby="auth-panel-titulo">
+    <p class="auth-panel__eyebrow">Gestión operativa</p>
+    <h2 id="auth-panel-titulo" class="auth-panel__title">Organiza las tareas de tu equipo en un solo lugar</h2>
+    <ul class="auth-panel__list">
+        <li>{% include 'base/partials/_icon.html' with nombre='check' %}<span>Crea, edita y elimina tareas.</span></li>
+        <li>{% include 'base/partials/_icon.html' with nombre='check' %}<span>Busca tareas por su título.</span></li>
+        <li>{% include 'base/partials/_icon.html' with nombre='check' %}<span>Distingue las pendientes de las completadas.</span></li>
+    </ul>
+    <p class="auth-panel__footer">Plásticos Sustentables · Sistema de Gestión de Tareas</p>
+</aside>
