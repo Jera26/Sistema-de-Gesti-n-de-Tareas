@@ -1,3 +1,10 @@
+import pytest
+from django.urls import reverse
+from base.models import Task
+
+pytestmark = pytest.mark.django_db
+
+
 def test_editar_tarea_propia(client_a, tarea_a):
     client_a.post(reverse("task-update", args=[tarea_a.pk]),
                   {"title": "Editada", "description": "", "complete": "on"})
