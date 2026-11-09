@@ -1,4 +1,4 @@
-.db.sqlite3
+db.sqlite3
 htmlcov/
 .coverage
 .pytest_cache/
@@ -23,3 +23,5 @@ venv/
 
 
 
+# Copias de seguridad locales de la base de datos
+backups/
