@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="logo-titulo">
+  <title id="logo-titulo">Plásticos Sustentables</title>
+  <rect width="48" height="48" rx="12" fill="#172554"/>
+  <!-- Ciclo: dos arcos con flecha -->
+  <path d="M14 26a10 10 0 0 1 17.3-6.8" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M31.8 14.6v5.2h-5.2" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M34 22a10 10 0 0 1-17.3 6.8" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M16.2 33.4v-5.2h5.2" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Hoja -->
+  <path d="M24 30c-3-3-3-8 0-12 3 4 3 9 0 12z" fill="#62df7d"/>
+</svg>

@@ -1,0 +1,1 @@
+{% with nombre=request.resolver_match.url_name %}{% if nombre == 'task-create' %}Nueva tarea{% elif nombre == 'task-update' %}Editar tarea{% elif nombre == 'task' %}Detalle de tarea{% elif nombre == 'task-delete' %}Eliminar tarea{% elif nombre == 'login' %}Iniciar sesión{% elif nombre == 'register' %}Registro{% else %}Mis tareas{% endif %}{% endwith %}

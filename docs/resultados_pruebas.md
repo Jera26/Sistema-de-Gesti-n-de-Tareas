@@ -133,3 +133,37 @@ Evidencias: `docs/evidencias/db_estado_pre_0003.json` y `docs/evidencias/db_esta
 La base local tiene 0 tareas, por lo que la copia de datos se verificó con las pruebas automáticas.
 
 Reversión: `python manage.py migrate base 0002` o restaurar la copia de `backups/`.
+
+## Diseño D-1 – Estructura visual general
+
+Referencia: diseños de Google Stitch (solo consulta visual; ningún archivo de Stitch se incorporó al proyecto; la carpeta está en `.gitignore`).
+
+Archivos nuevos:
+
+- `base/static/base/css/tokens.css`: variables de color, tipografía, espaciado, radios, sombras y estructura.
+- `base/static/base/css/app.css`: base, accesibilidad, estructura, barra lateral, barra superior, componentes (`.btn`, `.card`, `.badge`) y estilos de compatibilidad para las plantillas que se adaptan en D-2 a D-4.
+- `base/static/base/js/app.js`: menú lateral en tablet y móvil (abrir, cerrar con Escape o el fondo, foco devuelto al botón). La aplicación funciona sin JavaScript (`<noscript>` muestra el menú fijo).
+- `base/static/base/img/logo.svg`, `base/static/base/icons/sprite.svg`: logotipo e iconos SVG propios.
+- `base/templates/base/partials/`: `_sidebar.html`, `_topbar.html`, `_icon.html`, `_page_title.html`, `_auth_brand.html`.
+- `tests/test_interfaz_d1.py` (28 casos) y `tests/e2e/test_interfaz_d1_e2e.py` (6 casos + generador de capturas con `CAPTURAS=1`).
+
+Archivos modificados:
+
+- `base/templates/base/main.html`: CSS y JS locales; se eliminaron el `<style>` embebido y las fuentes de Google Fonts. Estructura con barra lateral y barra superior para usuarios autenticados, y columna centrada para login y registro. Se conserva `{% block content %}` y `lang="es"`.
+- `base/templates/base/task_list.html`: se quitó el enlace GET de cierre de sesión; ahora se cierra sesión por POST + CSRF desde la barra lateral.
+- `tests/e2e/test_acceptance.py`: localizador `SUBMIT` → `main form [type="submit"]` (autorizado). Sin cambios en aserciones.
+- `.gitignore`: excluye la carpeta de Stitch.
+
+Sin cambios en modelos, migraciones, vistas, señales, permisos, formularios ni base de datos.
+
+Defecto encontrado y corregido durante la verificación:
+
+- **E-11 (Baja, herramienta de pruebas):** las capturas "móviles" se generaban a 506 px aunque se pedía 390 px, porque Chrome no admite ventanas tan angostas. Se usa `Emulation.setDeviceMetricsOverride` para fijar el viewport exacto y la función `viewport()` verifica `innerWidth`.
+
+| Pruebas | Ejecutadas | Aprobadas | Fallidas |
+|---|---|---|---|
+| Unitarias e integración (incluye 28 de D-1) | 91 | 91 | 0 |
+| E2E headless (3 repeticiones) | 24 | 24 | 0 |
+| E2E con ventana (1 repetición) | 8 | 8 | 0 |
+
+Capturas de evidencia: `docs/evidencias/capturas/D-1/` (login, lista y nueva tarea en 1440, 834 y 390 px, y menú móvil abierto).

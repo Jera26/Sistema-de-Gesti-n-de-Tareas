@@ -25,3 +25,5 @@ venv/
 
 # Copias de seguridad locales de la base de datos
 backups/
+# Diseños de referencia de Google Stitch: solo consulta local, nunca se versionan
+stitch_pl_sticos_sustentables_task_manager/

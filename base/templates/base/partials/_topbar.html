@@ -1,0 +1,23 @@
+<header class="topbar">
+    <button class="topbar__menu" type="button" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú">
+        {% include 'base/partials/_icon.html' with nombre='menu' %}
+    </button>
+
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+        <ol>
+            <li>
+                <a href="{% url 'tasks' %}">Plásticos Sustentables</a>
+                {% include 'base/partials/_icon.html' with nombre='chevron' %}
+            </li>
+            <li aria-current="page">{% include 'base/partials/_page_title.html' %}</li>
+        </ol>
+    </nav>
+
+    <div class="topbar__user">
+        <div class="topbar__user-text">
+            <span class="topbar__user-name">{{ user.get_full_name|default:user.get_username }}</span>
+            <span class="topbar__user-meta">{% if user.is_staff %}Administrador{% else %}@{{ user.get_username }}{% endif %}</span>
+        </div>
+        <span class="avatar" aria-hidden="true">{% if user.first_name %}{{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}{% else %}{{ user.get_username|slice:":2" }}{% endif %}</span>
+    </div>
+</header>

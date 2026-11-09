@@ -8,7 +8,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 PASSWORD = "Pass12345!"
-SUBMIT = "input[type='submit'], button[type='submit']"
+# Botón de envío del formulario principal (la barra lateral tiene su propio
+# formulario POST de cierre de sesión). Localizador autorizado en D-1.
+SUBMIT = 'main form [type="submit"]'
 TIMEOUT = 10
 
 
