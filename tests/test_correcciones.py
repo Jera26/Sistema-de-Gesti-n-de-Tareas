@@ -1,4 +1,4 @@
-"""Pruebas de regresión para los defectos E-02 a E-07 (ver docs/informe_errores.md)."""
+
 import re
 import subprocess
 from pathlib import Path
