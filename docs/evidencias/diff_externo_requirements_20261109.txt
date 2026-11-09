@@ -1,0 +1,31 @@
+diff --git a/requirements-dev.txt b/requirements-dev.txt
+deleted file mode 100644
+index 41a1ac1..0000000
+--- a/requirements-dev.txt
++++ /dev/null
+@@ -1,9 +0,0 @@
+-# Dependencias de desarrollo y pruebas.
+-# Versiones verificadas en el entorno virtual del proyecto (Python 3.10.6) el 9/11/2026.
+-# Instalar con: pip install -r requirements-dev.txt
+--r requirements.txt
+-
+-pytest==9.2.0
+-pytest-django==4.14.0
+-pytest-cov==7.1.0
+-selenium==4.52.0
+diff --git a/requirements.txt b/requirements.txt
+index 2438a13..2307776 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -5,3 +5,10 @@ djangorestframework==3.14.0
+ pytz==2022.7.1
+ sqlparse==0.4.3
+ tzdata==2022.7
++selenium==4.52.0
++
++
++pytest==9.2.0
++pytest-django==4.14.0
++pytest-cov==7.1.0
++selenium==4.52.0
+\ No newline at end of file
