@@ -1,0 +1,29 @@
+db.sqlite3
+htmlcov/
+.coverage
+.pytest_cache/
+
+# Entorno virtual
+venv/
+.venv/
+
+# Archivos temporales de Python
+
+*.py[cod]
+
+# Configuración de Kiro
+.kiro/
+
+# Variables de entorno
+.env
+
+# Archivos de IDE
+.vscode/
+.idea/
+
+
+
+# Copias de seguridad locales de la base de datos
+backups/
+# Diseños de referencia de Google Stitch: solo consulta local, nunca se versionan
+stitch_pl_sticos_sustentables_task_manager/

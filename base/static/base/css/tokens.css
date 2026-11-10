@@ -1,0 +1,78 @@
+/*
+ * Variables de diseño – Sistema de Gestión de Tareas, Plásticos Sustentables.
+ * Paleta, tipografía, espaciado, radios y sombras centralizados.
+ */
+:root {
+    /* Marca */
+    --color-azul: #0051d5;            /* Azul principal: acciones, enlaces, foco */
+    --color-azul-hover: #003ea8;
+    --color-azul-suave: #e7eeff;
+    --color-marino: #172554;          /* Estructura: sección activa, botón primario */
+    --color-marino-hover: #1e3a8a;
+    --color-marino-profundo: #000f3f;
+
+    /* Superficies */
+    --color-fondo: #f9f9ff;           /* Fondo de la aplicación */
+    --color-superficie: #ffffff;      /* Tarjetas, barra lateral, barra superior */
+    --color-superficie-baja: #f0f3ff; /* Hover de navegación, campos de búsqueda */
+    --color-superficie-media: #e7eeff;
+
+    /* Texto */
+    --color-texto: #111c2d;
+    --color-texto-secundario: #45464f;
+    --color-texto-tenue: #5f6270;     /* Contraste 6:1 sobre blanco */
+
+    /* Bordes */
+    --color-borde: #e2e8f0;
+    --color-borde-fuerte: #c6c5d0;
+
+    /* Estados */
+    --color-exito: #15803d;
+    --color-exito-punto: #16a34a;
+    --color-exito-fondo: #dcfce7;
+    --color-espera: #b45309;
+    --color-espera-punto: #f59e0b;
+    --color-espera-fondo: #fef3c7;
+    --color-error: #ba1a1a;
+    --color-error-hover-fondo: #fee2e2;
+    --color-error-fondo: #ffdad6;
+    --color-verde-marca: #1aa54c;
+
+    /* Tipografía: Inter si está disponible en el equipo; si no, la fuente del sistema. */
+    --fuente: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    --texto-caption: 500 0.6875rem/0.875rem var(--fuente);   /* 11/14 */
+    --texto-sm: 400 0.75rem/1rem var(--fuente);              /* 12/16 */
+    --texto-label: 500 0.875rem/1.25rem var(--fuente);       /* 14/20 */
+    --texto-md: 400 0.875rem/1.25rem var(--fuente);          /* 14/20 */
+    --texto-lg: 400 1rem/1.5rem var(--fuente);               /* 16/24 */
+    --titulo-sm: 600 1rem/1.5rem var(--fuente);              /* 16/24 */
+    --titulo-md: 600 1.25rem/1.75rem var(--fuente);          /* 20/28 */
+    --titulo-lg: 600 1.5rem/2rem var(--fuente);              /* 24/32 */
+    --titulo-xl: 700 1.75rem/2.25rem var(--fuente);          /* 28/36 */
+
+    /* Espaciado */
+    --esp-xs: 0.25rem;
+    --esp-sm: 0.5rem;
+    --esp-md: 0.75rem;
+    --esp-lg: 1.25rem;
+    --esp-xl: 2rem;
+    --gutter: 1.5rem;
+    --margen: 2rem;
+
+    /* Radios */
+    --radio-sm: 0.25rem;
+    --radio: 0.5rem;          /* Controles y botones */
+    --radio-lg: 0.75rem;      /* Tarjetas */
+    --radio-pill: 9999px;     /* Insignias */
+
+    /* Sombras */
+    --sombra-1: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+    --sombra-2: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+    --sombra-3: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+    --halo-foco: 0 0 0 3px rgba(0, 81, 213, 0.25);
+
+    /* Estructura */
+    --ancho-sidebar: 240px;
+    --alto-topbar: 4rem;
+    --transicion: 150ms ease;
+}

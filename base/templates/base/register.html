@@ -1,15 +1,28 @@
 {% extends 'base/main.html' %}
 {% block content %}
-<div class="header-bar">
-    <h1>Register</h1>
-</div>
-<div class="card-body">
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input style="margin-top: 10px;" class="button" type="submit" value="Register">
-    </form>
+<div class="auth-card">
+    <section class="auth-card__form" aria-labelledby="auth-titulo">
+        {% include 'base/partials/_auth_brand.html' %}
 
-    <p>Already have an account?<a href="{% url 'login' %}">Log In</a></p>
+        <h1 id="auth-titulo" class="auth-card__title">Crear una cuenta</h1>
+        <p class="auth-card__lead">Regístrate para empezar a organizar tus tareas.</p>
+
+        <form method="POST" class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form.visible_fields %}
+                {% include 'base/partials/_form_field.html' with field=field %}
+            {% endfor %}
+            {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+            <button class="btn btn--primario btn--bloque" type="submit">
+                <span>Registrarse</span>
+                {% include 'base/partials/_icon.html' with nombre='flecha' %}
+            </button>
+        </form>
+
+        <p class="auth-card__alt">¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+    </section>
+
+    {% include 'base/partials/_auth_panel.html' %}
 </div>
 {% endblock content %}

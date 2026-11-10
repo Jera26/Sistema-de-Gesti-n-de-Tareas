@@ -50,7 +50,7 @@ class TaskList(LoginRequiredMixin, ListView):
         if search_input:
             context['tasks'] = context['tasks'].filter(title__icontains=search_input)
 
-        context['seach_input'] = search_input
+        context['search_input'] = search_input
         return context
 
 
@@ -58,6 +58,9 @@ class TaskDetail(LoginRequiredMixin, DetailView):
     model = Task 
     context_object_name = 'task'
     template_name = 'base/task.html'
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
 
 
 class TaskCreate(LoginRequiredMixin, CreateView):
@@ -72,10 +75,16 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task 
-    fields = '__all__'
+    fields = ['title', 'description', 'complete']
     success_url = reverse_lazy('tasks')
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
 
 class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Task 
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)

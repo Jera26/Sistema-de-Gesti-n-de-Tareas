@@ -1,0 +1,49 @@
+{% load static %}
+{% with nombre=request.resolver_match.url_name %}
+<aside id="sidebar" class="sidebar" aria-label="Navegación principal">
+    <a class="sidebar__brand" href="{% url 'tasks' %}">
+        <img src="{% static 'base/img/logo.svg' %}" alt="" width="36" height="36">
+        <span>
+            <strong>Plásticos Sustentables</strong>
+            <small>Gestión de tareas</small>
+        </span>
+    </a>
+
+    <nav class="sidebar__nav" aria-labelledby="sidebar-seccion">
+        <p id="sidebar-seccion" class="sidebar__section">Operaciones</p>
+        <ul>
+            <li>
+                <a class="sidebar__link" href="{% url 'tasks' %}"{% if nombre == 'tasks' or nombre == 'task' or nombre == 'task-update' or nombre == 'task-delete' %} aria-current="page"{% endif %}>
+                    {% include 'base/partials/_icon.html' with nombre='tareas' %}
+                    <span>Mis tareas</span>
+                </a>
+            </li>
+            <li>
+                <a class="sidebar__link" href="{% url 'task-create' %}"{% if nombre == 'task-create' %} aria-current="page"{% endif %}>
+                    {% include 'base/partials/_icon.html' with nombre='agregar' %}
+                    <span>Nueva tarea</span>
+                </a>
+            </li>
+            {% if user.is_staff %}
+            <li>
+                <a class="sidebar__link" href="{% url 'admin:index' %}">
+                    {% include 'base/partials/_icon.html' with nombre='admin' %}
+                    <span>Administración</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="sidebar__footer">
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="sidebar__link sidebar__logout" type="submit">
+                {% include 'base/partials/_icon.html' with nombre='salir' %}
+                <span>Cerrar sesión</span>
+            </button>
+        </form>
+    </div>
+</aside>
+<div class="sidebar-backdrop" data-sidebar-backdrop hidden></div>
+{% endwith %}
